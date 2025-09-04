@@ -259,7 +259,7 @@ mypy tdx_interpreter/
 
 - 项目主页: https://github.com/tdx-formula/interpreter
 - 问题反馈: https://github.com/tdx-formula/interpreter/issues
-- 邮箱: dev@tdxformula.com
+- 邮箱: elohia@qq.com
 
 ---
 
