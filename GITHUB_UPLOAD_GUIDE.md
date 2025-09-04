@@ -47,7 +47,7 @@ git push -u origin main
 ```
 tdx-formula-interpreter/
 ├── .gitignore              # Git忽略文件
-├── LICENSE                 # MIT许可证
+├── LICENSE                 # CC BY-NC 4.0许可证（非商业）
 ├── README.md              # 项目说明
 ├── USAGE_GUIDE.md         # 使用指南
 ├── IMPLEMENTATION_PLAN.md # 实施计划

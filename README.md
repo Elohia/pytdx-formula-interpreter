@@ -1,7 +1,7 @@
 # 通达信公式解释器 (TDX Formula Interpreter)
 
 [![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://python.org)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-blue.svg)](LICENSE)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
 [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](#)
 
@@ -247,7 +247,9 @@ mypy tdx_interpreter/
 
 ## 📄 许可证
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+本项目采用 Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情。
+
+**注意：本项目仅供非商业用途使用。**
 
 ## 🙏 致谢
 

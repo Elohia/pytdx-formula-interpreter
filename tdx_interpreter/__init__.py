@@ -19,13 +19,13 @@
 
 作者: TDX Formula Team
 版本: 0.1.0
-许可: MIT License
+许可: CC BY-NC 4.0 License
 """
 
 __version__ = "0.1.0"
 __author__ = "TDX Formula Team"
 __email__ = "dev@tdxformula.com"
-__license__ = "MIT"
+__license__ = "CC BY-NC 4.0"
 
 # 导入核心类和函数
 from .core.interpreter import TDXInterpreter
