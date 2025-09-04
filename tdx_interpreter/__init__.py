@@ -1,115 +1,102 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-通达信公式解释器 (TDX Formula Interpreter)
+通达信公式解释器
 
-一个完整的通达信公式解释器，支持：
-- 完整的语法解析
-- 所有内置函数和运算符
-- 公式编译和执行环境
-- 变量作用域管理
-- 错误检测和提示功能
-- 与通达信软件的兼容性
+一个用于解析和执行通达信公式的Python库。
+支持通达信公式语法，包括技术指标、数学运算、逻辑判断等功能。
 
-基本使用方法:
-    >>> from tdx_interpreter import TDXInterpreter
-    >>> interpreter = TDXInterpreter()
-    >>> result = interpreter.evaluate("MA(CLOSE, 5)")
-    >>> print(result)
-
-作者: TDX Formula Team
-版本: 0.1.0
-许可: CC BY-NC 4.0 License
+Author: pytdx-interpreter contributors
+License: CC BY-NC 4.0 License
+Version: 0.1.0
 """
 
 __version__ = "0.1.0"
-__author__ = "TDX Formula Team"
-__email__ = "dev@tdxformula.com"
+__author__ = "pytdx-interpreter contributors"
 __license__ = "CC BY-NC 4.0"
+__email__ = "your.email@example.com"
 
-# 导入核心类和函数
-from .core.interpreter import TDXInterpreter
-from .core.context import TDXContext
+# 核心类导入
+from .core.interpreter import TdxInterpreter
+from .core.evaluator import TdxEvaluator
+from .core.context import ExecutionContext
+
+# 异常类导入
 from .errors.exceptions import (
-    TDXError,
-    TDXSyntaxError,
-    TDXRuntimeError,
-    TDXTypeError,
-    TDXNameError,
+    TdxError,
+    TdxSyntaxError,
+    TdxRuntimeError,
+    TdxTypeError,
+    TdxNameError,
+    TdxValueError,
+    TdxFunctionError,
 )
 
-# 公共API
-__all__ = [
-    # 核心类
-    "TDXInterpreter",
-    "TDXContext",
-    
-    # 异常类
-    "TDXError",
-    "TDXSyntaxError", 
-    "TDXRuntimeError",
-    "TDXTypeError",
-    "TDXNameError",
-    
-    # 版本信息
-    "__version__",
-    "__author__",
-    "__email__",
-    "__license__",
-]
-
 # 便捷函数
-def evaluate(formula: str, context=None, **kwargs):
+def evaluate(formula: str, context: dict = None) -> any:
     """
-    快速计算通达信公式
+    便捷函数：评估通达信公式
     
     Args:
         formula: 通达信公式字符串
-        context: 数据上下文，包含K线数据等
-        **kwargs: 其他参数
+        context: 执行上下文字典
         
     Returns:
-        计算结果
-        
-    Example:
-        >>> result = evaluate("MA(CLOSE, 5)", context=my_data)
+        公式计算结果
     """
-    interpreter = TDXInterpreter()
-    return interpreter.evaluate(formula, context, **kwargs)
+    interpreter = TdxInterpreter()
+    return interpreter.evaluate(formula, context or {})
 
 def parse(formula: str):
     """
-    解析通达信公式，返回AST
+    便捷函数：解析通达信公式为AST
     
     Args:
         formula: 通达信公式字符串
         
     Returns:
-        抽象语法树(AST)
-        
-    Example:
-        >>> ast = parse("MA(CLOSE, 5)")
-        >>> print(ast)
+        AST节点
     """
-    interpreter = TDXInterpreter()
+    interpreter = TdxInterpreter()
     return interpreter.parse(formula)
 
-def validate(formula: str):
+def validate(formula: str) -> bool:
     """
-    验证通达信公式语法
+    便捷函数：验证通达信公式语法
     
     Args:
         formula: 通达信公式字符串
         
     Returns:
-        bool: 语法是否正确
-        
-    Example:
-        >>> is_valid = validate("MA(CLOSE, 5)")
-        >>> print(is_valid)  # True
+        是否语法正确
     """
     try:
         parse(formula)
         return True
-    except TDXSyntaxError:
+    except TdxError:
         return False
+
+__all__ = [
+    # 版本信息
+    "__version__",
+    "__author__", 
+    "__license__",
+    "__email__",
+    
+    # 核心类
+    "TdxInterpreter",
+    "TdxEvaluator", 
+    "ExecutionContext",
+    
+    # 异常类
+    "TdxError",
+    "TdxSyntaxError",
+    "TdxRuntimeError",
+    "TdxTypeError",
+    "TdxNameError",
+    "TdxValueError",
+    "TdxFunctionError",
+    
+    # 便捷函数
+    "evaluate",
+    "parse",
+    "validate",
+]
