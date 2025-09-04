@@ -1,0 +1,35 @@
+[flake8]
+# flake8代码质量检查配置
+
+# 最大行长度
+max-line-length = 88
+
+# 忽略的错误代码
+ignore = 
+    # E203: whitespace before ':' (conflicts with black)
+    E203,
+    # W503: line break before binary operator (conflicts with black)
+    W503,
+    # E501: line too long (handled by black)
+    E501
+
+# 排除的目录
+exclude = 
+    .git,
+    __pycache__,
+    .pytest_cache,
+    .mypy_cache,
+    build,
+    dist,
+    *.egg-info,
+    venv,
+    env,
+    .venv,
+    .env
+
+# 每个文件的最大复杂度
+max-complexity = 10
+
+# 导入顺序检查
+import-order-style = google
+application-import-names = tdx_interpreter

@@ -1,0 +1,29 @@
+# 核心依赖
+numpy>=1.20.0
+pandas>=1.3.0
+
+# 基础tdx库 (如果可用)
+# tdx-main>=0.1.0
+
+# 数据处理
+dataclasses>=0.6; python_version<"3.7"
+typing-extensions>=3.7.4; python_version<"3.8"
+
+# 开发依赖 (可选)
+pytest>=6.0
+pytest-cov>=2.0
+pytest-benchmark>=3.4
+black>=21.0
+flake8>=3.8
+mypy>=0.800
+
+# 文档生成 (可选)
+sphinx>=4.0
+sphinx-rtd-theme>=0.5
+
+# 性能优化 (可选)
+numba>=0.50.0
+
+# 调试工具 (可选)
+ipdb>=0.13.0
+memory-profiler>=0.58.0
