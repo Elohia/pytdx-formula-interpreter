@@ -178,3 +178,6 @@ Desktop.ini
 test_library_usage.py
 .pytest_cache/
 htmlcov/
+
+# Private strategies - do not upload to GitHub
+examples/sample_formulas/私人策略-不上传/
