@@ -8,6 +8,7 @@
 
 from typing import Any, Dict, List, Optional, Union
 import pandas as pd
+import os
 from ..lexer import TDXLexer, Token
 from ..errors.exceptions import TDXError, TDXSyntaxError, TDXRuntimeError
 from .context import TDXContext
@@ -156,6 +157,76 @@ class TDXInterpreter:
         )
         
         registry.register(tdx_function)
+    
+    def load_from_file(self, file_path: str, encoding: str = 'utf-8') -> str:
+        """
+        从文件加载通达信公式
+        
+        Args:
+            file_path: 文件路径
+            encoding: 文件编码，默认为utf-8
+            
+        Returns:
+            str: 文件中的公式内容
+            
+        Raises:
+            TDXError: 文件读取错误
+        """
+        try:
+            if not os.path.exists(file_path):
+                raise TDXError(f"文件不存在: {file_path}")
+            
+            if not file_path.lower().endswith('.txt'):
+                raise TDXError(f"不支持的文件格式，仅支持.txt文件: {file_path}")
+            
+            with open(file_path, 'r', encoding=encoding) as f:
+                content = f.read().strip()
+            
+            if not content:
+                raise TDXError(f"文件内容为空: {file_path}")
+            
+            if self._debug_mode:
+                print(f"从文件加载公式: {file_path}")
+                print(f"公式内容: {content}")
+            
+            return content
+            
+        except UnicodeDecodeError as e:
+            raise TDXError(f"文件编码错误，请检查文件编码格式: {str(e)}")
+        except IOError as e:
+            raise TDXError(f"文件读取错误: {str(e)}")
+        except Exception as e:
+            raise TDXError(f"加载文件时发生未知错误: {str(e)}")
+    
+    def evaluate_file(self, file_path: str, context: Optional[Union[pd.DataFrame, Dict]] = None, 
+                     encoding: str = 'utf-8', **kwargs) -> Any:
+        """
+        从文件加载并计算通达信公式
+        
+        Args:
+            file_path: 包含通达信公式的txt文件路径
+            context: 数据上下文（K线数据等）
+            encoding: 文件编码，默认为utf-8
+            **kwargs: 其他参数
+            
+        Returns:
+            计算结果
+            
+        Raises:
+            TDXError: 文件加载或计算错误
+        """
+        try:
+            # 从文件加载公式
+            formula = self.load_from_file(file_path, encoding)
+            
+            # 计算公式
+            return self.evaluate(formula, context, **kwargs)
+            
+        except Exception as e:
+            if isinstance(e, TDXError):
+                raise
+            else:
+                raise TDXRuntimeError(f"执行文件公式时发生错误: {str(e)}") from e
     
     def get_context(self) -> TDXContext:
         """

@@ -1,0 +1,1 @@
+(CLOSE - REF(CLOSE, 1)) / REF(CLOSE, 1) * 100

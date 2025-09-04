@@ -87,6 +87,58 @@ signal = interpreter.evaluate(complex_formula, context=data)
 print(signal)
 ```
 
+### 从文件加载公式
+
+```python
+from tdx_interpreter import TDXInterpreter
+
+# 创建解释器实例
+interpreter = TDXInterpreter()
+
+# 方法1：先加载公式，再计算
+formula = interpreter.load_from_file('my_formula.txt')
+result = interpreter.evaluate(formula, context=data)
+
+# 方法2：直接从文件计算
+result = interpreter.evaluate_file('my_formula.txt', context=data)
+
+# 支持不同编码格式
+result = interpreter.evaluate_file('gbk_formula.txt', context=data, encoding='gbk')
+```
+
+#### 公式文件格式
+
+公式文件应该是纯文本文件（.txt格式），内容示例：
+
+**ma5.txt**:
+```
+MA(CLOSE, 5)
+```
+
+**complex_strategy.txt**:
+```
+# 这是注释
+MA5 := MA(CLOSE, 5);
+MA20 := MA(CLOSE, 20);
+IF(MA5 > MA20, 1, 0)
+```
+
+**macd_signal.txt**:
+```
+MACD(CLOSE, 12, 26, 9)
+```
+
+#### 错误处理
+
+```python
+from tdx_interpreter.errors.exceptions import TDXError
+
+try:
+    result = interpreter.evaluate_file('formula.txt', context=data)
+except TDXError as e:
+    print(f"公式执行错误: {e}")
+```
+
 ## 📊 支持的函数
 
 ### 技术指标函数 (8个)

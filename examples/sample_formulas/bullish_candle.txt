@@ -1,0 +1,1 @@
+IF(CLOSE > OPEN, 1, 0)

@@ -1,0 +1,1 @@
+MA(CLOSE, 20) + 2 * STD(CLOSE, 20)

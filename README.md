@@ -93,6 +93,37 @@ ast = parse("MA(CLOSE, 5)")
 print(f"AST: {ast}")
 ```
 
+### 文件加载功能
+
+支持从txt文件加载通达信公式，方便管理和复用复杂的公式策略：
+
+```python
+# 创建公式文件 ma5.txt
+# 内容: MA(CLOSE, 5)
+
+# 方法1: 分步加载和计算
+formula = interpreter.load_from_file('ma5.txt')
+result = interpreter.evaluate(formula, context=data)
+
+# 方法2: 直接从文件计算
+result = interpreter.evaluate_file('ma5.txt', context=data)
+
+# 支持带注释的复杂公式文件
+# 文件内容示例:
+# # 这是一个复合策略
+# # 当MA5上穿MA20且RSI小于70时产生买入信号
+# IF(CROSS(MA(CLOSE, 5), MA(CLOSE, 20)) AND RSI(CLOSE, 14) < 70, 1, 0)
+
+strategy_result = interpreter.evaluate_file('strategy.txt', context=data)
+print(f"Strategy Signal: {strategy_result}")
+```
+
+**支持的文件格式：**
+- 仅支持 `.txt` 格式文件
+- 支持 UTF-8 编码
+- 支持 `#`、`//`、`{}` 三种注释风格
+- 自动过滤空行和注释行
+
 ## 📚 支持的函数
 
 ### 技术指标函数

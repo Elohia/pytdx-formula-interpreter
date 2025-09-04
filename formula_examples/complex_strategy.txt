@@ -1,0 +1,3 @@
+# 复合策略信号
+# 当MA5上穿MA20且RSI小于70时买入
+IF(CROSS(MA(CLOSE, 5), MA(CLOSE, 20)) AND RSI(CLOSE, 14) < 70, 1, 0)

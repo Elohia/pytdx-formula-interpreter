@@ -55,8 +55,8 @@ class TDXLexer:
         # 空白字符模式
         self.whitespace_pattern = re.compile(r'[ \t]+')
         
-        # 注释模式：// 或 { } 风格
-        self.comment_pattern = re.compile(r'//.*?$|\{.*?\}', re.MULTILINE | re.DOTALL)
+        # 注释模式：// 或 { } 或 # 风格
+        self.comment_pattern = re.compile(r'//.*?$|\{.*?\}|#.*?$', re.MULTILINE | re.DOTALL)
     
     def tokenize(self, text: str) -> List[Token]:
         """
