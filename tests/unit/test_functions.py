@@ -19,7 +19,7 @@ from tdx_interpreter.functions.technical import MAFunction, EMAFunction
 from tdx_interpreter.functions.mathematical import ABSFunction, SUMFunction
 from tdx_interpreter.functions.logical import IFFunction, ANDFunction
 from tdx_interpreter.functions.temporal import REFFunction, CROSSFunction
-from tdx_interpreter.errors import TDXArgumentError, TDXTypeError, TDXNameError
+from tdx_interpreter.errors import TDXArgumentError, TDXTypeError, TDXNameError, TDXValueError
 
 
 class TestFunctionRegistry:
@@ -352,10 +352,10 @@ class TestParameterValidation:
         assert isinstance(result, pd.Series)
         
         # 无效范围
-        with pytest.raises(TDXArgumentError):
+        with pytest.raises(TDXValueError):
             ma_func(data, 0)  # period必须 >= 1
         
-        with pytest.raises(TDXArgumentError):
+        with pytest.raises(TDXValueError):
             ma_func(data, -1)  # period必须 >= 1
     
     def test_argument_count_validation(self):
